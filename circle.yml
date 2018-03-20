@@ -1,8 +1,14 @@
 # cicle.yml
 machine: # 虛擬機的環境
-  node:
-    version: 9.8.0 #把剛剛得到的node version填到這裡
-  test:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker build -t hello-ci-workflow .
+
+test:
+  override:
     #- npm test  #每一個deploy到github上的commit都會執行npm test
     - ./node_modules/.bin/mocha
     - docker run -d -p 3000:3000 hello-ci-workflow; sleep 10
