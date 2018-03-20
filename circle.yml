@@ -5,3 +5,5 @@ machine: # 虛擬機的環境
   test:
     #- npm test  #每一個deploy到github上的commit都會執行npm test
     - ./node_modules/.bin/mocha
+    - docker run -d -p 3000:3000 hello-ci-workflow; sleep 10
+    - curl --retry 10 --retry-delay 5 -v http://localhost:3000
